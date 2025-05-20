@@ -1,0 +1,16 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-Wall",
+      "-Iinclude",
+      "-c",
+      "-o",
+      "build/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/dabig/Documentos/nebin/dotc",
+    "file": "/home/dabig/Documentos/nebin/dotc/src/main.c",
+    "output": "/home/dabig/Documentos/nebin/dotc/build/main.o"
+  }
+]
