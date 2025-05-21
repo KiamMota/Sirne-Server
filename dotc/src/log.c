@@ -9,7 +9,7 @@ struct logState *init_logState(const char *fname) {
     log_state->file_name = fname;
     log_state->line = 0;
     log_state->offset = 0;
-    log_state->cursor_position = SEEK_SET;
+    log_state->cursor_position = 0;
   }
   return log_state;
 }
