@@ -15,8 +15,10 @@ struct logState *init_logState(const char *fname) {
 }
 
 struct logState *destroy_logState(struct logState *log_state) {
-  if (log_state)
+  if (log_state){
+    fclose(log_state->fptr);
     free(log_state);
+  }
   return log_state;
 }
 
@@ -31,11 +33,7 @@ int writen(struct logState *log_state, const char *write) {
 
 int write(struct logState* log_state, const char* write)
 {
-  log_state->fptr = fopen(log_state->file_name, "a");
-  if(log_state->fptr) return -1;
-  fputs(write, log_state->fptr);
-  log_state->line +=1;
-  return 0;
+  printf("foo");
 }
 
 int close_log(struct logState* log_state)

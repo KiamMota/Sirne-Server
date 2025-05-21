@@ -1,10 +1,10 @@
 #include "server.h"
-#include <stdlib.h>
+#include "uv.h"
 
 struct serverState* init_serverState()
 {
   struct serverState* sv_state = (struct serverState*)malloc(sizeof(struct serverState));
-  sv_state->state = 0;
+  sv_state->loop = (uv_loop_t *)malloc(sizeof(uv_loop_t));
   sv_state->port = 0;
   sv_state->protocol = "no protocol";
   return sv_state;
