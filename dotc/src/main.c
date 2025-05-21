@@ -1,8 +1,7 @@
-#include <stdio.h>
-#include "serverstate.h"
-
+#include "log.h"
 int main()
 {
+  return 0;
 
 }
 

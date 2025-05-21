@@ -1,4 +1,4 @@
-#include "serverstate.h"
+#include "server.h"
 #include <stdlib.h>
 
 struct serverState* init_serverState()
