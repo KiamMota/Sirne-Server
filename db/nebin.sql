@@ -1,21 +1,43 @@
 CREATE DATABASE IF NOT EXISTS nebin;
-CREATE USER IF NOT EXISTS 'nebin'@'localhost' IDENTIFIED BY 'neb';
+CREATE USER IF NOT EXISTS 'nebin'@'localhost' IDENTIFIED BY 'admin';
 GRANT ALL PRIVILEGES ON nebin.* TO 'nebin'@'localhost';
 
 FLUSH PRIVILEGES;
 
 USE nebin;
 
-CREATE TABLE blog (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    titulo                VARCHAR(80),
-    subtitulo             VARCHAR(250),
-    conteudo              VARCHAR(2500),
-    heart_emoji       INT DEFAULT 0,
-    crying_emoji      INT DEFAULT 0,
-    surprised_emoji   INT DEFAULT 0,
-    thumbs_up_emoji   INT DEFAULT 0,
-    thumbs_down_emoji INT DEFAULT 0,
-    angry_emoji       INT DEFAULT 0
+CREATE TABLE dia(
+    name VARCHAR(30) NOT NULL PRIMARY KEY
 );
 
+CREATE TABLE acompanhamento(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(60) NOT NULL,
+    calories INT     NOT NULL,
+    lactose  BOOLEAN NOT NULL,
+    gluten   BOOLEAN NOT NULL
+);
+
+CREATE TABLE lanche(
+    id INT NOT NULL  AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(60) NOT NULL,
+    calories INT     NOT NULL,
+    lactose BOOLEAN  NOT NULL,
+    gluten BOOLEAN   NOT NULL
+);
+
+CREATE TABLE dia_lanche (
+    dia_name VARCHAR(30)    NOT NULL,
+    lanche_id INT           NOT NULL,
+    PRIMARY KEY (dia_name, lanche_id),
+    FOREIGN KEY (dia_name)  REFERENCES dia(name),
+    FOREIGN KEY (lanche_id) REFERENCES lanche(id)
+);
+
+CREATE TABLE lanche_acompanhamento(
+    lanche_id INT NOT NULL,
+    acomp_id  INT NOT NULL,
+    PRIMARY KEY (lanche_id, acomp_id),
+    FOREIGN KEY (lanche_id) REFERENCES lanche(id),
+    FOREIGN KEY (acomp_id)  REFERENCES acompanhamento(id)  
+);

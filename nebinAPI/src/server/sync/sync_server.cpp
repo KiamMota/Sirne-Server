@@ -1,4 +1,7 @@
+#include <boost/asio/buffer.hpp>
+#include <boost/asio/socket_base.hpp>
 #include <boost/system/detail/error_code.hpp>
+#include <boost/system/system_error.hpp>
 #include <nebinAPI/src/server/base/server_base.hpp>
 
 #include <nebinAPI/sync_server.hpp>
@@ -26,6 +29,7 @@ void sync_server::open() {
   try{
   sync_acceptor.open(sync_endpoint.protocol());
   sync_acceptor.bind(sync_endpoint);
+  sync_acceptor.set_option(boost::asio::socket_base::reuse_address(true));
   }catch(boost::system::error_code)
   {
     std::cout << "porta: " << sync_endpoint.port() << "deve-se ter elevação para abrir o executável" <<  std::endl;
@@ -47,13 +51,18 @@ void sync_server::server_const_message(std::string message) {
   clear_server_buffer();
 }
 
-void sync_server::get_client_string(std::string handle_string, const char* delim = ">!") {
-  boost::asio::read_until(sync_socket, client_streambuff, delim);
-  if (client_streambuff.size() <= 0)
-    return;
-  std::istream buffer_to_string(&client_streambuff);
-  std::getline(buffer_to_string, handle_string);
-}
+void sync_server::get_client_string(std::string& handle_string, const char* delim ) {
+    char buffer[1024];
+      try{
+      auto buf  = boost::asio::buffer(buffer, sizeof(buffer));
+      size_t n = sync_socket.read_some(buf);
+      handle_string.assign(buffer, n);
+      }catch(boost::system::system_error& a)
+      {
+        std::cout << "erro de leitura" << std::endl;
+        return;
+      }
+      }
 
 } // namespace server
 } // namespace nebin

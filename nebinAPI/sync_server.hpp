@@ -26,7 +26,7 @@ namespace nebin {
         void listen();
         /*formatation*/
         void server_const_message(std::string message);
-        void get_client_string(std::string handle_string, const char* delim);
+        void get_client_string(std::string& handle_string, const char* delim = "\r\n");
         void clear_client_buffer();
 
     };
