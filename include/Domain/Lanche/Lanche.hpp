@@ -23,6 +23,4 @@ class Lanche
 		bool GetLactose()			{return lactose;}
 };
 
-
-
 #endif
