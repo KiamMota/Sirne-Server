@@ -1,0 +1,7 @@
+compile_settings.json
+build/
+.cache/
+CMakeFiles/
+
+
+
