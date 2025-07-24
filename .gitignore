@@ -2,6 +2,8 @@ compile_settings.json
 build/
 .cache/
 CMakeFiles/
-
+CMakeCache.txt
+cmake_install.cmake
+Makefile
 
 
