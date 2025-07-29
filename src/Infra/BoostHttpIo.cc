@@ -9,11 +9,10 @@
 BoostHttpIo::BoostHttpIo() {}
 
 void BoostHttpIo::ReadOutput() {
-  std::cout << Request[http::field::host];
   std::cout << "[" << Request.method_string() << "]";
+  std::cout << "  ";
+  std::cout << "(" << Request[http::field::host] << ")";
   std::cout << " -> " << Request.target();
-
-  std::cout << std::endl;
 }
 
 bool BoostHttpIo::Read(boost::asio::ip::tcp::socket &ClientSocket, bool Out) {

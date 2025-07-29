@@ -36,7 +36,7 @@ int main() {
 
     if (ClientSocket.is_open()) {
       ClientSocket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
-      std::cout << "-> closed connection.\n";
+      std::cout << "[FINALIZADO]" << std::endl;
       ClientSocket.close();
     }
   }
