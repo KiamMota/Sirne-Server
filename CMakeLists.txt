@@ -5,5 +5,8 @@ project(ss VERSION 0.1)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-add_executable(${PROJECT_NAME} src/main.cpp)
-include_directories(include src)
+set(START src/main.cpp)
+set(INFRA src/Infra/BoostHttpIo.cc)
+
+add_executable(${PROJECT_NAME} ${INFRA} ${START})
+include_directories(include)

@@ -1,18 +1,11 @@
-#include <boost/beast/http/field.hpp>
-#include <boost/beast/http/message_fwd.hpp>
-#include <boost/system/detail/error_code.hpp>
-#include <iostream>
-
 #include <Infra/BoostHttpIo.hh>
 
 #include <boost/asio.hpp>
 #include <boost/asio/io_context.hpp>
-#include <boost/beast/core.hpp>
-#include <boost/beast/http.hpp>
+#include <iostream>
+
 int main() {
-
-  BoostHttpIo httpIo;
-
+  BoostHttpIo httpIo{};
   static int total_connections = 0;
   std::cout << "info : SS - (SIRNE Server) Kiam Mota (2025)." << std::endl;
 
@@ -40,20 +33,8 @@ int main() {
     boost::beast::http::request<boost::beast::http::string_body> RequestBody;
 
     MainAcceptor.accept(ClientSocket);
-    total_connections++;
-    std::cout << "#" << total_connections << ": ";
-    std::cout << "-> connection recieved. [" << ClientSocket.remote_endpoint()
-              << "]" << std::endl;
+    httpIo.Read(ClientSocket, true);
 
-    std::cout << "-> reading buffer." << std::endl;
-    boost::beast::http::read(ClientSocket, RawBuffer, Response, ec);
-
-    if (ec) {
-      std::cerr << "error : " << ec.message() << std::endl;
-      continue;
-    }
-
-    std::cout << "-> readed. " << std::endl;
     if (ClientSocket.is_open()) {
       ClientSocket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
       std::cout << "-> closed connection.\n";
