@@ -24,8 +24,8 @@ int main() {
 
   MainAcceptor.listen();
 
-  std::cout << "info : Listening.\n";
-
+  std::cout << "info : Listening in " << MainEPoint.address() << ":"
+            << MainEPoint.port() << std::endl;
   boost::beast::flat_buffer RawBuffer;
 
   while (1) {
@@ -33,10 +33,9 @@ int main() {
     MainAcceptor.accept(ClientSocket);
 
     httpIo.Read(ClientSocket, true);
-
+    std::cout << "[FINALIZADO]" << std::endl;
     if (ClientSocket.is_open()) {
       ClientSocket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
-      std::cout << "[FINALIZADO]" << std::endl;
       ClientSocket.close();
     }
   }

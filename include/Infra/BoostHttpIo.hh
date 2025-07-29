@@ -22,7 +22,6 @@ private:
 
 public:
   BoostHttpIo();
-
   bool Read(boost::asio::ip::tcp::socket &ClientSocket, bool Out);
 };
 
