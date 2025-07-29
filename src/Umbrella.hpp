@@ -3,5 +3,4 @@
 
 #include "Domain/Lanche/Lanche.hpp"
 
-
 #endif
