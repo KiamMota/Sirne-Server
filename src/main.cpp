@@ -6,7 +6,6 @@
 
 int main() {
   BoostHttpIo httpIo{};
-  static int total_connections = 0;
   std::cout << "info : SS - (SIRNE Server) Kiam Mota (2025)." << std::endl;
 
   boost::asio::io_context IoContext;
@@ -30,9 +29,9 @@ int main() {
   boost::beast::flat_buffer RawBuffer;
 
   while (1) {
-    boost::beast::http::request<boost::beast::http::string_body> RequestBody;
 
     MainAcceptor.accept(ClientSocket);
+
     httpIo.Read(ClientSocket, true);
 
     if (ClientSocket.is_open()) {
