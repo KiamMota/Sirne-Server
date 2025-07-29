@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/dabig/Documentos/nebin",
+  "command": "/usr/bin/c++  -I/home/dabig/Documentos/nebin/include -I/home/dabig/Documentos/nebin/src -std=gnu++17 -o CMakeFiles/ss.dir/src/main.cpp.o -c /home/dabig/Documentos/nebin/src/main.cpp",
+  "file": "/home/dabig/Documentos/nebin/src/main.cpp",
+  "output": "CMakeFiles/ss.dir/src/main.cpp.o"
+}
+]

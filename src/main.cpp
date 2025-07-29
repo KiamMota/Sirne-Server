@@ -1,48 +1,48 @@
-#include "nebinAPI/sync_server.hpp"
-#include "include/interpreter.hpp"
-#include <string>
+#include <iostream>
 
-int main() {
-    nebin::server::sync_server server{};
-    server.open();
-    server.listen();
+#include <boost/asio/io_context.hpp>
+#include <boost/beast/core.hpp>
+#include <boost/beast/http.hpp>
+#include <boost/asio.hpp>
+
+int main()
+{
+	std::cout << "info : SS - (SIRNE Server) Kiam Mota (2025)." << std::endl; 
+		
+	boost::asio::io_context IoContext;
+	boost::asio::ip::tcp::endpoint MainEPoint{boost::asio::ip::tcp::v4(), 8080};
+	boost::asio::ip::tcp::acceptor MainAcceptor{IoContext};
+
+	std::cout << "info : Setup server\n"; 
+
+	MainAcceptor.open(MainEPoint.protocol());
+
+	std::cout << "info : Open listener socket.\n";
+
+	MainAcceptor.bind(MainEPoint);
+
+	std::cout << "info : Bind with server endpoint.\n";
+	
+	MainAcceptor.listen();
+
+	std::cout << "info : Listening.\n";
+	std::cout << "info : Waiting connections.\n";
+
+	boost::beast::flat_buffer RawBuffer;
+	boost::beast::http::request<boost::beast::http::string_body> RequestBody;
+
+	while(1)
+	{	
+		boost::asio::ip::tcp::socket ClientSocket{IoContext};
+
+		MainAcceptor.accept(ClientSocket);
+		
+		std::cout << "-> connection recieved. [" << ClientSocket.remote_endpoint() << "]\n";
+		ClientSocket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
+		std::cout << "-> closed connection.\n";
+		ClientSocket.close();
+	}
 
 
-int code = 0;  
-std::string OK = "{ \"resposte\": \"ok, my friend\" }";
-
-
-
-std::string CORS = 
-  "HTTP/1.1 "+ std::to_string(code) + "\r\n"
-  "Content-Type: application/json\r\n"
-  "Access-Control-Allow-Origin: *\r\n"
-  "Access-Control-Allow-Methods: GET, POST, OPTIONS\r\n"
-  "Access-Control-Allow-Headers: Content-Type\r\n"
-  "Content-Length: " + std::to_string(OK.size()) + "\r\n\r\n";
-
-    std::string handle_string = "nulinho";
-
-HttpInterpreter::Elements Elements;
-
-  std::string foo = "------>";
-
-    while(1)
-    {
-        server.accept();
-        server.get_client_string(handle_string);
-        std::cout << handle_string << std::endl;
-  Elements = HttpInterpreter::interpretation(handle_string);
-      std::cout << foo << Elements.method << std::endl;
-      std::cout << foo << Elements.host << std::endl;
-      std::cout << foo << Elements.content_length << std::endl;
-      std::cout << foo << Elements.header << std::endl;
-    Elements = HttpInterpreter::off_interpretation(Elements);
-    server.close();
-     
-    }
-
-
-    
-    return 0;  
+	return 0;
 }

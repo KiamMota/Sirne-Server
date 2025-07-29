@@ -1,6 +1,9 @@
-
-.cache/
+compile_settings.json
 build/
-compile_comands.json
-nb
+.cache/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
 
