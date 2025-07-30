@@ -9,15 +9,16 @@ class LogSystem {
 private:
   LogSystem();
   static LogSystem *Instance;
-  std::queue<const char *> LogInfos;
+  std::vector<std::string> LogInfos;
 
 public:
   static LogSystem *GetInstance();
   enum FLAG : short { OK = 1, WARNING, ERROR, FATAL_ERROR, THROWED };
   void Report(FLAG flag, const char *literalString, const char *comment);
+  void SLog(const char *literalString);
   LogSystem *InfoStart();
-  LogSystem *InfoPush(const char *literalString);
-  void InfoOk(const char *literalString);
+  LogSystem *InfoPush(std::string literalString);
+  void InfoEnd();
 };
 
 extern LogSystem *GlobalLog;

@@ -13,8 +13,10 @@ class BoostConnection {
 private:
   boost::asio::io_context IoContext;
   boost::system::error_code MainErrorClass;
+
   ip::tcp Adress = ip::tcp::v4();
   ip::port_type Port = 8080;
+
   ip::tcp::endpoint MainEPoint{Adress, Port};
   ip::tcp::acceptor MainAcceptor{IoContext};
 

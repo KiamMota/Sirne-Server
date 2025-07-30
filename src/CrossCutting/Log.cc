@@ -21,20 +21,26 @@ LogSystem *LogSystem::GetInstance() {
   return LogSystem::Instance;
 }
 
+LogSystem *LogSystem::InfoPush(std::string literalString) {
+  LogInfos.push_back(literalString);
+  return Instance;
+}
+
 LogSystem *LogSystem::InfoStart() {
-  LogInfos.push("info : ");
+  LogInfos.push_back("info : ");
   return LogSystem::Instance;
 }
 
-LogSystem *LogSystem::InfoPush(const char *literalString) {
-  LogInfos.push(literalString);
-  return LogSystem::Instance;
-}
-void LogSystem::InfoOk(const char *literalString) {
-  while (!LogInfos.empty()) {
-    std::cout << LogInfos.back();
-    LogInfos.pop();
+void LogSystem::InfoEnd() {
+  for (auto item : LogInfos) {
+    std::cout << item;
   }
+  std::cout << std::endl;
+  LogInfos.clear();
+}
+
+void LogSystem::SLog(const char *literalString) {
+  std::cout << "info : " << literalString << std::endl;
 }
 
 void LogSystem::Report(FLAG flag, const char *literal_string,

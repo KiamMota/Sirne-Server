@@ -14,7 +14,9 @@ int main() {
 
   boostCon.Start();
 
-  std::cout << boostCon.GetAdress() << ":" << boostCon.GetPort() << std::endl;
+  std::cout << "info : " << "Listening on " << boostCon.GetAdress() << ":"
+            << boostCon.GetPort() << std::endl;
+
   while (1) {
     boostCon.Run();
 
