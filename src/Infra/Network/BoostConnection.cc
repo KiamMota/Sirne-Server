@@ -3,6 +3,8 @@
 #include <boost/asio/ip/basic_endpoint.hpp>
 #include <boost/system/detail/error_code.hpp>
 
+#include "CrossCutting/Log.hh"
+
 #include <iostream>
 
 BoostConnection::BoostConnection() {}
@@ -13,7 +15,9 @@ void BoostConnection::Open() {
     if (MainErrorClass)
       throw MainErrorClass;
   } catch (const boost::system::error_code &Error) {
-    std::cout << "An error occurred while ss trying to open the Endpoint:";
+
+    LogSystem::Report(LogSystem::THROWED, "Fail to open endpoint",
+                      Error.message().c_str());
     std::cout << MainErrorClass.message();
   }
 }
@@ -24,13 +28,14 @@ void BoostConnection::Bind() {
     if (MainErrorClass)
       throw MainErrorClass;
   } catch (boost::system::error_code &Ec) {
-    std::cout << "!- Port is already used." << std::endl;
+    LogSystem::Report(LogSystem::THROWED, "Error with bind",
+                      Ec.message().c_str());
     Port++;
-    std::cout << "!- Trying with \"" << Port << "\"" << std::endl;
+    LogSystem::LogInfo("Trying with another port");
     MainEPoint.port(Port);
     MainAcceptor.bind(MainEPoint, MainErrorClass);
     if (!MainErrorClass)
-      std::cout << "!- Successful. " << std::endl;
+      LogSystem::LogInfo("Successful");
     else
       exit(-1);
   }
