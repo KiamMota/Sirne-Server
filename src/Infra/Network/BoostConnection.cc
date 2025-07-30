@@ -29,9 +29,9 @@ void BoostConnection::Bind() {
   } catch (boost::system::error_code &Ec) {
     GLog->Report(LogSystem::THROWN, "While bind",
                  MainErrorClass.message().c_str());
-    GLog->SLog("Trying with another port");
     Port++;
     MainEPoint.port(Port);
+    GLog->Report(LogSystem::FALLBACK, "Trying another port", 0);
     MainAcceptor.bind(MainEPoint, MainErrorClass);
     if (!MainErrorClass) {
       GLog->Report(LogSystem::OK, "Success in bind", 0);

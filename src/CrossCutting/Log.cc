@@ -8,6 +8,7 @@
 #define GREEN_COLOR() printf("\033[32m")
 #define YELLOW_COLOR() printf("\033[33m")
 #define MAGENTA_COLOR() printf("\033[35m")
+#define CYAN_COLOR() printf("\033[36m")
 
 LogSystem *GLog = LogSystem::GetInstance();
 
@@ -68,6 +69,11 @@ void LogSystem::Report(FLAG flag, const char *literal_string,
   case THROWN:
     MAGENTA_COLOR();
     std::cout << "[THROWN]";
+    DEFAULT_COLORS();
+    break;
+  case FALLBACK:
+    CYAN_COLOR();
+    std::cout << "[FALLBACK]";
     DEFAULT_COLORS();
     break;
   }

@@ -11,12 +11,13 @@ set(CROSSCUTTING_SRC
   src/CrossCutting/Log.cc
   src/CrossCutting/Terminal.cc
 )
-
 set(NETWORK_SRC 
   src/Infra/Network/BoostHttpIo.cc
   src/Infra/Network/BoostConnection.cc
 )
+
 set(INFRA
+  src/Infra/Controllers.cc
   ${NETWORK_SRC}
   ${CROSSCUTTING_SRC}
 )

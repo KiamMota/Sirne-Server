@@ -13,7 +13,7 @@ private:
 
 public:
   static LogSystem *GetInstance();
-  enum FLAG : short { OK = 1, WARNING, ERROR, FATAL_ERROR, THROWN };
+  enum FLAG : short { OK = 1, WARNING, ERROR, FATAL_ERROR, THROWN, FALLBACK };
   void Report(FLAG flag, const char *literalString, const char *comment);
   void SLog(const char *literalString);
   LogSystem *InfoStart();

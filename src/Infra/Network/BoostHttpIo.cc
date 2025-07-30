@@ -24,11 +24,10 @@ bool BoostHttpIo::Read(boost::asio::ip::tcp::socket &ClientSocket, bool Out) {
                  ErrorCode.message().c_str());
     return false;
   }
-  GLog->Report(LogSystem::OK, "Read buffer successfully", 0);
   if (Out)
     ReadOutput();
   return true;
 }
 
-void BoostHttpIo::RequestClean() { Request.clear(); }
-std::string BoostHttpIo::GetWebEnpoint() { return Request.target(); }
+void BoostHttpIo::RequestClear() { Request.clear(); }
+std::string BoostHttpIo::GetEndpoint() { return Request.target(); }

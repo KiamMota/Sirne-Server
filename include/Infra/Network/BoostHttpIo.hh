@@ -19,8 +19,8 @@ private:
 public:
   BoostHttpIo();
   bool Read(boost::asio::ip::tcp::socket &ClientSocket, bool Out);
-  void RequestClean();
-  std::string GetWebEnpoint();
+  void RequestClear();
+  std::string GetEndpoint();
 };
 
 #endif

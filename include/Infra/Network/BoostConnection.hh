@@ -29,6 +29,7 @@ public:
   ip::address GetAdress();
   ip::port_type GetPort();
 
+  std::string GetEndpoint();
   void Start();
   void Run();
 
