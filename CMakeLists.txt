@@ -6,7 +6,11 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(START src/main.cpp)
-set(INFRA src/Infra/BoostHttpIo.cc)
+set(INFRA 
+  src/Infra/BoostHttpIo.cc
+  src/Infra/Terminal.cc
+  src/Infra/BoostConnection.cc
+)
 
 add_executable(${PROJECT_NAME} ${INFRA} ${START})
 include_directories(include)

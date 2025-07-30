@@ -12,20 +12,16 @@ void BoostHttpIo::ReadOutput() {
   std::cout << "[" << Request.method_string() << "]";
   std::cout << "  ";
   std::cout << "(" << Request[http::field::host] << ")";
-  std::cout << " -> " << Request.target();
+  std::cout << " -> " << Request.target() << std::endl;
+  std::cout << Request.body();
 }
 
 bool BoostHttpIo::Read(boost::asio::ip::tcp::socket &ClientSocket, bool Out) {
   boost::beast::http::read(ClientSocket, RawBuffer, Request, ErrorCode);
-  if (Out)
-    ReadOutput();
   if (ErrorCode)
     std::cout << "READ ERROR : " << ErrorCode.message() << std::endl;
   return false;
-
+  if (Out)
+    ReadOutput();
   return true;
 }
- 
-   
-  
-

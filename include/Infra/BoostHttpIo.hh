@@ -13,10 +13,6 @@ private:
   boost::system::error_code ErrorCode;
   boost::beast::flat_buffer RawBuffer;
   http::request<http::string_body> Request;
-  boost::beast::http::response<boost::beast::http::string_body> Response;
-  http::response<boost::beast::http::string_body> Ok{};
-  http::response<boost::beast::http::string_body> NotFound{};
-  http::request<boost::beast::http::string_body> NotAllowed{};
 
   void ReadOutput();
 
