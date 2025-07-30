@@ -1,6 +1,7 @@
 #include <Infra/Network/BoostConnection.hh>
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/basic_endpoint.hpp>
+#include <boost/beast/http/field.hpp>
 #include <boost/system/detail/error_code.hpp>
 
 #include "CrossCutting/Log.hh"
@@ -26,11 +27,16 @@ void BoostConnection::Bind() {
     if (MainErrorClass)
       throw MainErrorClass;
   } catch (boost::system::error_code &Ec) {
+    GLog->Report(LogSystem::THROWN, "While bind",
+                 MainErrorClass.message().c_str());
+    GLog->SLog("Trying with another port");
     Port++;
     MainEPoint.port(Port);
     MainAcceptor.bind(MainEPoint, MainErrorClass);
-    if (!MainErrorClass)
+    if (!MainErrorClass) {
+      GLog->Report(LogSystem::OK, "Success in bind", 0);
       return;
+    }
     exit(-1);
   }
 }
@@ -48,10 +54,7 @@ void BoostConnection::SocketOpen() {
 }
 void BoostConnection::Run() { MainAcceptor.accept(ClientSocket); }
 bool BoostConnection::SocketIsOpen() { return ClientSocket.is_open(); }
-void BoostConnection::SocketClose() {
-  ClientSocket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
-  ClientSocket.close();
-}
+void BoostConnection::SocketClose() { ClientSocket.close(); }
 
 boost::asio::ip::address BoostConnection::GetAdress() {
   return MainEPoint.address();

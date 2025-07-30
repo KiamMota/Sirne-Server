@@ -8,10 +8,12 @@
 #include <iostream>
 
 int main() {
+
   Terminal::ClearScreen();
   BoostConnection boostCon;
   BoostHttpIo httpIo{};
 
+  GLog->SLog("Stating server");
   boostCon.Start();
 
   std::cout << "info : " << "Listening on " << boostCon.GetAdress() << ":"
@@ -21,8 +23,6 @@ int main() {
     boostCon.Run();
 
     httpIo.Read(boostCon.ClientSocket, true);
-    if (httpIo.GetWebEnpoint() == "/api/test") {
-    }
     if (boostCon.SocketIsOpen()) {
       boostCon.SocketClose();
     }

@@ -9,7 +9,7 @@
 #define YELLOW_COLOR() printf("\033[33m")
 #define MAGENTA_COLOR() printf("\033[35m")
 
-LogSystem *GlobalLog = LogSystem::GetInstance();
+LogSystem *GLog = LogSystem::GetInstance();
 
 LogSystem *LogSystem::Instance = nullptr;
 
@@ -65,9 +65,9 @@ void LogSystem::Report(FLAG flag, const char *literal_string,
     std::cout << "[ERROR]";
     DEFAULT_COLORS();
     break;
-  case THROWED:
+  case THROWN:
     MAGENTA_COLOR();
-    std::cout << "[THROWED]";
+    std::cout << "[THROWN]";
     DEFAULT_COLORS();
     break;
   }
@@ -75,8 +75,9 @@ void LogSystem::Report(FLAG flag, const char *literal_string,
   std::cout << literal_string;
   if (comment == 0) {
     std::cout << ".";
+    std::cout << std::endl;
     return;
   }
-  std::cout << " : ";
+  std::cout << " -> ";
   std::cout << "\"" << comment << ".\"" << std::endl;
 }

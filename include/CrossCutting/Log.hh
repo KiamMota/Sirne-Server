@@ -13,7 +13,7 @@ private:
 
 public:
   static LogSystem *GetInstance();
-  enum FLAG : short { OK = 1, WARNING, ERROR, FATAL_ERROR, THROWED };
+  enum FLAG : short { OK = 1, WARNING, ERROR, FATAL_ERROR, THROWN };
   void Report(FLAG flag, const char *literalString, const char *comment);
   void SLog(const char *literalString);
   LogSystem *InfoStart();
@@ -21,6 +21,6 @@ public:
   void InfoEnd();
 };
 
-extern LogSystem *GlobalLog;
+extern LogSystem *GLog;
 
 #endif
