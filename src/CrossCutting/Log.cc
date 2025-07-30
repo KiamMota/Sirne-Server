@@ -9,8 +9,11 @@
 #define YELLOW_COLOR() printf("\033[33m")
 #define MAGENTA_COLOR() printf("\033[35m")
 
-void LogSystem::Log(const char *literalString) {
-  std::cout << "\"" << literalString << "\"";
+void LogSystem::LogInfo(const char *literalString) {
+  std::cout << "info";
+  std::cout << " : ";
+  std::cout << "\"" << literalString << "\".";
+  std::cout << std::endl;
 }
 
 void LogSystem::Report(FLAG flag, const char *literal_string,

@@ -6,7 +6,7 @@ private:
 public:
   enum FLAG : short { OK = 1, WARNING, ERROR, FATAL_ERROR, THROWED };
   static void Report(FLAG flag, const char *literalString, const char *comment);
-  static void Log(const char *literalString);
+  static void LogInfo(const char *literalString);
 };
 
 #endif
