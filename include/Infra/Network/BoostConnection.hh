@@ -20,21 +20,23 @@ private:
 
 public:
   BoostConnection();
+
   ip::tcp::socket ClientSocket{IoContext};
+
+  ip::tcp::socket GetClientSocket();
+  ip::address GetAdress();
+  ip::port_type GetPort();
+
   void Start();
+  void Run();
 
   void Open();
   void Bind();
   void Listen();
 
-  void Run();
   void SocketOpen();
   bool SocketIsOpen();
   void SocketClose();
-
-  ip::tcp::socket GetClientSocket();
-  ip::address GetAdress();
-  ip::port_type GetPort();
 };
 
 #endif

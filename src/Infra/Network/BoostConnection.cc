@@ -1,4 +1,4 @@
-#include <Infra/BoostConnection.hh>
+#include <Infra/Network/BoostConnection.hh>
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/basic_endpoint.hpp>
 #include <boost/system/detail/error_code.hpp>

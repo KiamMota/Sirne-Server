@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-#include "Infra/BoostHttpIo.hh"
+#include "Infra/Network/BoostHttpIo.hh"
 BoostHttpIo::BoostHttpIo() {}
 
 void BoostHttpIo::ReadOutput() {
@@ -25,3 +25,6 @@ bool BoostHttpIo::Read(boost::asio::ip::tcp::socket &ClientSocket, bool Out) {
     ReadOutput();
   return true;
 }
+
+void BoostHttpIo::RequestClean() { Request.clear(); }
+std::string BoostHttpIo::GetWebEnpoint() { return Request.target(); }

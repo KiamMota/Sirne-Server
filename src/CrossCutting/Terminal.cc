@@ -1,4 +1,4 @@
-#include "Infra/Terminal.hh"
+#include "CrossCutting/Terminal.hh"
 #include <iostream>
 
 #if defined(__unix__)
