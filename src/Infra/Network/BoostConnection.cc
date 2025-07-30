@@ -16,8 +16,6 @@ void BoostConnection::Open() {
       throw MainErrorClass;
   } catch (const boost::system::error_code &Error) {
 
-    LogSystem::Report(LogSystem::THROWED, "Fail to open endpoint",
-                      Error.message().c_str());
     std::cout << MainErrorClass.message();
   }
 }
@@ -28,16 +26,12 @@ void BoostConnection::Bind() {
     if (MainErrorClass)
       throw MainErrorClass;
   } catch (boost::system::error_code &Ec) {
-    LogSystem::Report(LogSystem::THROWED, "Error with bind",
-                      Ec.message().c_str());
     Port++;
-    LogSystem::LogInfo("Trying with another port");
     MainEPoint.port(Port);
     MainAcceptor.bind(MainEPoint, MainErrorClass);
     if (!MainErrorClass)
-      LogSystem::LogInfo("Successful");
-    else
-      exit(-1);
+      return;
+    exit(-1);
   }
 }
 

@@ -1,12 +1,25 @@
 #ifndef _LOG_H_
 #define _LOG_H_
 
+#include <iostream>
+#include <queue>
+#include <stack>
+
 class LogSystem {
 private:
+  LogSystem();
+  static LogSystem *Instance;
+  std::queue<const char *> LogInfos;
+
 public:
+  static LogSystem *GetInstance();
   enum FLAG : short { OK = 1, WARNING, ERROR, FATAL_ERROR, THROWED };
-  static void Report(FLAG flag, const char *literalString, const char *comment);
-  static void LogInfo(const char *literalString);
+  void Report(FLAG flag, const char *literalString, const char *comment);
+  LogSystem *InfoStart();
+  LogSystem *InfoPush(const char *literalString);
+  void InfoOk(const char *literalString);
 };
+
+extern LogSystem *GlobalLog;
 
 #endif

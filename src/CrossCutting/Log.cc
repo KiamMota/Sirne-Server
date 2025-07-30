@@ -9,11 +9,32 @@
 #define YELLOW_COLOR() printf("\033[33m")
 #define MAGENTA_COLOR() printf("\033[35m")
 
-void LogSystem::LogInfo(const char *literalString) {
-  std::cout << "info";
-  std::cout << " : ";
-  std::cout << "\"" << literalString << "\".";
-  std::cout << std::endl;
+LogSystem *GlobalLog = LogSystem::GetInstance();
+
+LogSystem *LogSystem::Instance = nullptr;
+
+LogSystem::LogSystem() {}
+
+LogSystem *LogSystem::GetInstance() {
+  if (LogSystem::Instance == nullptr)
+    LogSystem::Instance = new LogSystem{};
+  return LogSystem::Instance;
+}
+
+LogSystem *LogSystem::InfoStart() {
+  LogInfos.push("info : ");
+  return LogSystem::Instance;
+}
+
+LogSystem *LogSystem::InfoPush(const char *literalString) {
+  LogInfos.push(literalString);
+  return LogSystem::Instance;
+}
+void LogSystem::InfoOk(const char *literalString) {
+  while (!LogInfos.empty()) {
+    std::cout << LogInfos.back();
+    LogInfos.pop();
+  }
 }
 
 void LogSystem::Report(FLAG flag, const char *literal_string,

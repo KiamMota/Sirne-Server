@@ -12,13 +12,9 @@ int main() {
   BoostConnection boostCon;
   BoostHttpIo httpIo{};
 
-  LogSystem::Report(LogSystem::OK, "SIRNE Server API (SSA). Kiam Mota 2025.",
-                    "Starting Application");
   boostCon.Start();
 
-  std::cout << "info : Listening in " << boostCon.GetAdress() << ":"
-            << boostCon.GetPort() << std::endl;
-
+  std::cout << boostCon.GetAdress() << ":" << boostCon.GetPort() << std::endl;
   while (1) {
     boostCon.Run();
 
@@ -26,7 +22,6 @@ int main() {
     if (httpIo.GetWebEnpoint() == "/api/test") {
     }
     if (boostCon.SocketIsOpen()) {
-      LogSystem::Report(LogSystem::OK, "Closed Socket", 0);
       boostCon.SocketClose();
     }
   }
